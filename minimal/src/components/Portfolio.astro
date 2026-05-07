@@ -1,0 +1,274 @@
+---
+import ImageModal from './ImageModal.astro';
+import work1 from '../images/portfolio/work-1.jpg';
+import work2 from '../images/portfolio/work-2.jpg';
+import work3 from '../images/portfolio/work-3.jpg';
+import work4 from '../images/portfolio/work-4.jpg';
+import work5 from '../images/portfolio/work-5.jpg';
+
+// Portfolio section con información detallada
+const portfolioItems = [
+  {
+    id: 1,
+    src: work1,
+    alt: 'Bolso tejido',
+    title: 'Bolso tejido',
+    time: '8 horas',
+    hook: '5mm',
+    technique: 'Punto medio',
+    materials: 'Lana 100% acrílica'
+  },
+  {
+    id: 2,
+    src: work2,
+    alt: 'Amigurumi',
+    title: 'Amigurumi',
+    time: '6 horas',
+    hook: '3mm',
+    technique: 'Punto bajo cerrado',
+    materials: 'Algodón suave, relleno poliéster'
+  },
+  {
+    id: 3,
+    src: work3,
+    alt: 'Tapestry crochet',
+    title: 'Tapestry crochet',
+    time: '12 horas',
+    hook: '4mm',
+    technique: 'Tapestry crochet',
+    materials: 'Lana multicolor'
+  },
+  {
+    id: 4,
+    src: work4,
+    alt: 'Top de red',
+    title: 'Top de red',
+    time: '5 horas',
+    hook: '4.5mm',
+    technique: 'Puntos calados',
+    materials: 'Hilo fino 100% algodón'
+  },
+  {
+    id: 5,
+    src: work5,
+    alt: 'Mantel boho',
+    title: 'Mantel boho',
+    time: '10 horas',
+    hook: '5mm',
+    technique: 'Punto V, motivos',
+    materials: 'Algodón natural, teñido'
+  },
+];
+---
+<section class="portfolio crochet-bg-portfolio" id="portfolio">
+  <div class="portfolio-inner">
+    <div class="portfolio-header">
+      <div class="portfolio-header-text">
+        <p class="section-eyebrow-light">✦ Trabajos realizados</p>
+        <h2 class="portfolio-title">Mis producciones<br/><em>bonitas</em></h2>
+      </div>
+      <p class="portfolio-subtitle">
+        Te ayudo a replicar las cosas que yo hago.<br/>
+        Cada pieza tiene su patrón y su historia.
+      </p>
+    </div>
+
+    <div class="portfolio-grid">
+      {portfolioItems.map((item) => (
+        <article class="portfolio-card">
+          <button
+            class="portfolio-img-wrap portfolio-btn"
+            type="button"
+            aria-label={`Ver detalles de ${item.title}`}
+            data-src={item.src.src}
+            data-alt={item.alt}
+            data-title={item.title}
+            data-time={item.time}
+            data-hook={item.hook}
+            data-technique={item.technique}
+            data-materials={item.materials}
+          >
+            <img
+              src={item.src.src}
+              alt={item.alt}
+              class="portfolio-img"
+              loading="lazy"
+            />
+            <!-- Placeholder mostrado cuando no hay imagen real -->
+            <div class="portfolio-placeholder" aria-hidden="true">
+              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="40" opacity="0.4">
+                <circle cx="30" cy="20" r="12" fill="none" stroke="white" stroke-width="2"/>
+                <path d="M10 50 Q30 35 50 50" fill="none" stroke="white" stroke-width="2"/>
+                <circle cx="30" cy="20" r="4" fill="white" opacity="0.6"/>
+              </svg>
+            </div>
+            <div class="portfolio-overlay">
+              <span class="portfolio-item-title">{item.title}</span>
+              <span class="portfolio-item-cta">Ver detalles →</span>
+            </div>
+          </button>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<ImageModal />
+
+<style>
+  .portfolio {
+    padding: 5rem 1.5rem;
+    position: relative;
+  }
+
+  .portfolio-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .portfolio-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .section-eyebrow-light {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .portfolio-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: white;
+    line-height: 1.05;
+  }
+
+  .portfolio-title em {
+    font-style: italic;
+    color: var(--cream-dark);
+  }
+
+  .portfolio-subtitle {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.75;
+    padding-bottom: 0.25rem;
+  }
+
+  /* Grid */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+/* ═════════════════════════════════════════════════
+   PORTFOLIO CARD: BORDES EN MICRO-PUNTO DE CRUZ
+   Trama de cruces de 8px (Efecto costura fina)
+   ═════════════════════════════════════════════════ */
+/* ═════════════════════════════════════════════════
+   PORTFOLIO CARD: COSTURA CENTRADA (Transparente)
+   ═════════════════════════════════════════════════ */
+
+.portfolio-card {
+  position: relative;
+  overflow: visible !important;
+}
+
+
+  .portfolio-img-wrap {
+    position: relative;
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    background: var(--burgundy);
+    border-radius: 2px;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .portfolio-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  /* Placeholder (visible when img fails or before real img is added) */
+  .portfolio-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--burgundy) 0%, var(--burgundy-light) 100%);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Ccircle cx='10' cy='10' r='4' fill='none' stroke='%23ffffff10' stroke-width='1'/%3E%3C/svg%3E");
+  }
+
+  /* Hide placeholder if real img loaded */
+  .portfolio-img:not([src*="placeholder"]) + .portfolio-placeholder {
+    display: none;
+  }
+
+  .portfolio-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(90,0,20,0.9) 0%, transparent 60%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.25rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .portfolio-img-wrap:hover .portfolio-overlay {
+    opacity: 1;
+  }
+
+  .portfolio-img-wrap:hover .portfolio-img {
+    transform: scale(1.04);
+  }
+
+  .portfolio-item-title {
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .portfolio-item-cta {
+    font-size: 0.8rem;
+    color: var(--cream-dark);
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .portfolio-item-cta:hover {
+    color: white;
+  }
+
+  /* First card spans 2 cols on wider screens */
+  @media (min-width: 640px) {
+    .portfolio-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+    .portfolio-card:first-child {
+      grid-column: span 1;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .portfolio-header {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

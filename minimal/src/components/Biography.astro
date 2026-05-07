@@ -1,0 +1,161 @@
+---
+// Biography / Hero section
+---
+
+<section class="biography crochet-bg" id="biografia">
+  <div class="bio-inner ">
+    <div class="bio-image-slot">
+      <!-- Reemplazá src con tu foto real -->
+      <img src="src/images/fotoperfil.jpg" alt="Foto de perfil" class="bio-photo" />
+      <div class="bio-photo-placeholder" aria-hidden="true">
+        <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="60" cy="45" r="28" fill="#B07CC6" opacity="0.6"/>
+          <ellipse cx="60" cy="105" rx="45" ry="28" fill="#B07CC6" opacity="0.6"/>
+        </svg>
+        <span>Tu foto</span>
+      </div>
+    </div>
+
+    <div class="bio-content">
+      <div class="bio-card">
+        <p class="bio-eyebrow">✦ Artesana por placer ✦</p>
+        <h1 class="bio-name">Romi on Crochet</h1>
+        <p class="bio-tagline">
+          Creo con hilo, enseño con paciencia.<br/>
+          <em>Cada trama invita a la relajación.</em>
+        </p>
+        <p class="bio-description">
+          Soy artesana textil especializada en crochet. Trabajo piezas únicas
+          y doy clases personalizadas para que vos también puedas crear algo
+          hermoso con tus propias manos.
+        </p>
+        
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .biography {
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    padding: 4rem 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .bio-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.4fr;
+    gap: 3rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .bio-image-slot {
+    position: relative;
+  }
+
+  .bio-photo {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 2px 40% 2px 40%;
+    border: 3px solid rgba(255,255,255,0.3);
+    display: block;
+  }
+
+  /* Placeholder visible cuando no hay imagen real */
+  .bio-photo-placeholder {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: rgba(0,0,0,0.25);
+    border-radius: 2px 40% 2px 40%;
+    border: 3px dashed rgba(255,255,255,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.85rem;
+    gap: 0.75rem;
+  }
+
+  .bio-photo-placeholder svg {
+    width: 80px;
+    opacity: 0.5;
+  }
+
+  /* Si hay imagen real, ocultar placeholder */
+  .bio-photo + .bio-photo-placeholder {
+    display: none;
+  }
+
+
+  .bio-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--violet);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  .bio-name {
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+    line-height: 1;
+  }
+
+  .bio-tagline {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: var(--violet-dark);
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  .bio-description {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .bio-ornament {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+    color: var(--violet-light);
+  }
+
+  .bio-ornament span {
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.4;
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    .bio-inner {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .bio-image-slot {
+      max-width: 260px;
+      margin: 0 auto;
+    }
+  }
+</style>
