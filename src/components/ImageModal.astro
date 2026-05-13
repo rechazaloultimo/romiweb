@@ -1,0 +1,298 @@
+---
+// Modal flotante tipo Carrusel
+---
+
+<div id="imageModal" class="image-modal">
+  <div class="modal-overlay"></div>
+  
+  <div class="modal-container">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar modal">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </button>
+
+    <div class="modal-content">
+      <div class="modal-visual">
+        <button class="nav-btn prev" id="prevBtn" aria-label="Anterior">‹</button>
+        <img id="modalImage" src="" alt="" class="modal-image" />
+        <button class="nav-btn next" id="nextBtn" aria-label="Siguiente">›</button>
+      </div>
+      
+      <div class="modal-info">
+        <h3 id="modalTitle" class="modal-title"></h3>
+        
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="info-label">⏱️ Tiempo de proceso</span>
+            <span id="modalTime" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">🧶 Gancho</span>
+            <span id="modalHook" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">✨ Técnica</span>
+            <span id="modalTechnique" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">🎨 Materiales</span>
+            <span id="modalMaterials" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">💡 Uso recomendado</span>
+            <span id="modalUsage" class="info-value"></span>
+          </div>
+          <div class="info-item">
+            <span class="info-label">⚖️ Cantidad de material</span>
+            <span id="modalAmount" class="info-value"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('imageModal');
+    const imgElement = document.getElementById('modalImage');
+    let projectImages = []; // Aquí guardaremos las fotos del proyecto abierto
+    let currentIndex = 0;
+
+    // Función para mostrar la imagen según el índice
+    const updateImage = (index) => {
+      currentIndex = index;
+      imgElement.src = projectImages[currentIndex];
+    };
+
+    // Al hacer clic en un trabajo del portfolio
+    document.querySelectorAll('.portfolio-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        // 1. Cargamos la lista de imágenes desde el data-images
+        projectImages = this.dataset.images.split(',');
+        
+        // 2. Llenamos la información (Zona Verde)
+        document.getElementById('modalTitle').textContent = this.dataset.title;
+        document.getElementById('modalTime').textContent = this.dataset.time;
+        document.getElementById('modalHook').textContent = this.dataset.hook;
+        document.getElementById('modalTechnique').textContent = this.dataset.technique;
+        document.getElementById('modalMaterials').textContent = this.dataset.materials;
+        document.getElementById('modalUsage').textContent = this.dataset.usage;
+        document.getElementById('modalAmount').textContent = this.dataset.amount;
+
+        // 3. Mostramos la primera imagen y abrimos
+        updateImage(0);
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    // Flechas: ahora navegan dentro de projectImages
+    document.getElementById('nextBtn').onclick = () => {
+      updateImage((currentIndex + 1) % projectImages.length);
+    };
+
+    document.getElementById('prevBtn').onclick = () => {
+      updateImage((currentIndex - 1 + projectImages.length) % projectImages.length);
+    };
+
+    // Cerrar modal
+    const closeModal = () => {
+      modal.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    };
+
+    document.getElementById('modalClose')?.addEventListener('click', closeModal);
+    document.querySelector('.modal-overlay')?.addEventListener('click', closeModal);
+
+    // Teclado (Flechas y Esc)
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('active')) return;
+      if (e.key === 'ArrowRight') updateImage((currentIndex + 1) % projectImages.length);
+      if (e.key === 'ArrowLeft') updateImage((currentIndex - 1 + projectImages.length) % projectImages.length);
+      if (e.key === 'Escape') closeModal();
+    });
+  });
+</script>
+
+<style>
+  .image-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+
+  .image-modal.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: var(--violet-dark);
+    opacity: 0.4;
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-container {
+    position: relative;
+    background: var(--cream);
+    width: 95%;
+    max-width: auto;
+    border-radius: 30px; /* Redondeado como pediste */
+    overflow: hidden;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  }
+
+.modal-content {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr; 
+    gap: 2rem; 
+  }
+
+  /* Visual e Imagen */
+  .modal-visual {
+    position: relative;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 600px;
+  }
+
+  .modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-height: 80vh;
+  }
+
+  /* Flechas de Navegación */
+  .nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--cream);
+    color: var(--violet);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 3rem; /* Ajusta aquí el tamaño del icono */
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 20;
+    display: grid;
+    place-items: center;
+  }
+
+  .nav-btn:hover { background: var(--violet); color: var(--cream); }
+  .nav-btn.prev { left: 1rem; }
+  .nav-btn.next { right: 1rem; }
+
+  /* Info (Zona Verde) */
+  .modal-info {
+    padding: 3rem 2rem;
+    background: var(--cream);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    overflow-y: auto;
+    max-height: 100%;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #2d1a36;
+    margin: 0;
+    border-bottom: 2px solid var(--violet);
+    padding-bottom: 1rem;
+  }
+
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--violet);
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+  }
+
+  .info-value {
+    font-size: 1rem;
+    color: #5a4b61;
+    font-weight: 500;
+  }
+
+  /* Botón Cerrar */
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 30;
+    background: var(--cream);
+    border: 1px solid var(--violet);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 10px var(--violet);
+    color: var(--violet);
+  }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .modal-container {
+      width: 95%;
+      max-height: 90vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .modal-content { 
+      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
+      height: 90%;
+      overflow: hidden;
+        gap: 0.5rem; 
+    }
+    .modal-visual {
+      flex-shrink: 0;
+      min-height: 35vh;
+      max-height: 35vh;
+    }
+    .modal-info {
+      flex: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+    .modal-image { max-height: 35vh; }
+    
+  .nav-btn {
+   font-size: 1.7rem; 
+    width: 30px;
+    height: 30px;
+  }
+  }
+</style>

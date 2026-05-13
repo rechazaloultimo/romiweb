@@ -10,53 +10,63 @@ import work5 from '../images/portfolio/work-5.jpg';
 const portfolioItems = [
   {
     id: 1,
-    src: work1,
+    images: [work1.src, work2.src, work3.src, work4.src],
     alt: 'Bolso tejido',
     title: 'Bolso tejido',
     time: '8 horas',
     hook: '5mm',
     technique: 'Punto medio',
-    materials: 'Lana 100% acrílica'
+    materials: 'Lana 100% acrílica',
+    usage: 'Accesorio diario',    // <-- Nuevo
+    amount: '300g aprox.',
   },
   {
     id: 2,
-    src: work2,
+    images: [work2.src],
     alt: 'Amigurumi',
     title: 'Amigurumi',
     time: '6 horas',
     hook: '3mm',
     technique: 'Punto bajo cerrado',
-    materials: 'Algodón suave, relleno poliéster'
+    materials: 'Algodón suave, relleno poliéster',
+    usage: 'Accesorio diario',    // <-- Nuevo
+    amount: '300g aprox.',
   },
   {
     id: 3,
-    src: work3,
+    images: [work3.src],
     alt: 'Tapestry crochet',
     title: 'Tapestry crochet',
     time: '12 horas',
     hook: '4mm',
     technique: 'Tapestry crochet',
-    materials: 'Lana multicolor'
+    materials: 'Lana multicolor',
+     usage: 'Accesorio diario',    // <-- Nuevo
+    amount: '300g aprox.',
   },
   {
     id: 4,
-    src: work4,
+    images: [work4.src],
     alt: 'Top de red',
     title: 'Top de red',
     time: '5 horas',
     hook: '4.5mm',
     technique: 'Puntos calados',
-    materials: 'Hilo fino 100% algodón'
+    materials: 'Hilo fino 100% algodón',
+     usage: 'Accesorio diario',    // <-- Nuevo
+    amount: '300g aprox.',
   },
   {
     id: 5,
-    src: work5,
+    images: [work5.src],
     alt: 'Mantel boho',
     title: 'Mantel boho',
     time: '10 horas',
     hook: '5mm',
     technique: 'Punto V, motivos',
-    materials: 'Algodón natural, teñido'
+    materials: 'Algodón natural, teñido',
+     usage: 'Accesorio diario',    // <-- Nuevo
+    amount: '300g aprox.',
   },
 ];
 ---
@@ -64,13 +74,9 @@ const portfolioItems = [
   <div class="portfolio-inner">
     <div class="portfolio-header">
       <div class="portfolio-header-text">
-        <p class="section-eyebrow-light">✦ Trabajos realizados</p>
-        <h2 class="portfolio-title">Mis producciones<br/><em>bonitas</em></h2>
+        <p class="section-eyebrow-light">♥ Te ayudo a replicar las cosas que yo hago ♥</p>
+        <h2 class="portfolio-title">Mis <em>bonitas</em> producciones<br/></h2>
       </div>
-      <p class="portfolio-subtitle">
-        Te ayudo a replicar las cosas que yo hago.<br/>
-        Cada pieza tiene su patrón y su historia.
-      </p>
     </div>
 
     <div class="portfolio-grid">
@@ -80,28 +86,20 @@ const portfolioItems = [
             class="portfolio-img-wrap portfolio-btn"
             type="button"
             aria-label={`Ver detalles de ${item.title}`}
-            data-src={item.src.src}
-            data-alt={item.alt}
-            data-title={item.title}
+            data-images={item.images.join(',')} data-title={item.title}
             data-time={item.time}
             data-hook={item.hook}
             data-technique={item.technique}
             data-materials={item.materials}
+            data-usage={item.usage}
+            data-amount={item.amount}
           >
             <img
-              src={item.src.src}
+              src={item.images[0]}
               alt={item.alt}
               class="portfolio-img"
               loading="lazy"
-            />
-            <!-- Placeholder mostrado cuando no hay imagen real -->
-            <div class="portfolio-placeholder" aria-hidden="true">
-              <svg viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" width="40" opacity="0.4">
-                <circle cx="30" cy="20" r="12" fill="none" stroke="white" stroke-width="2"/>
-                <path d="M10 50 Q30 35 50 50" fill="none" stroke="white" stroke-width="2"/>
-                <circle cx="30" cy="20" r="4" fill="white" opacity="0.6"/>
-              </svg>
-            </div>
+            /> 
             <div class="portfolio-overlay">
               <span class="portfolio-item-title">{item.title}</span>
               <span class="portfolio-item-cta">Ver detalles →</span>
@@ -131,35 +129,39 @@ const portfolioItems = [
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
     align-items: end;
-    margin-bottom: 3rem;
+    margin-bottom: 3rem;  
   }
 
   .section-eyebrow-light {
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.6);
-    font-weight: 500;
-    margin-bottom: 0.75rem;
-  }
+  display: inline-block; /* Importante para que el fondo solo cubra el texto */
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  
+  /* Colores */
+  background-color: #8b4da8; /* Tu violeta */
+  color: var(--cream); /* Color crema (ajustalo si usas otra variable) */
+  
+  /* Estilo */
+  padding: 0.4rem 1rem;
+  border-radius: 50px; /* Bordes totalmente redondeados tipo píldora */
+  margin-bottom: 1.25rem;
+}
 
-  .portfolio-title {
-    font-size: clamp(2rem, 4vw, 3rem);
-    color: white;
-    line-height: 1.05;
-  }
+/* El título "Mis producciones bonitas" */
+.portfolio-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--text-dark, #2d1a36); /* Color oscuro para contraste total */
+  line-height: 1.05;
+}
 
-  .portfolio-title em {
-    font-style: italic;
-    color: var(--cream-dark);
-  }
+/* La palabra "bonitas" en cursiva */
+.portfolio-title em {
+  font-style: italic;
+  color: #8b4da8; /* El violeta que elegiste para las líneas del fondo */
+}
 
-  .portfolio-subtitle {
-    font-size: 1rem;
-    color: rgba(255,255,255,0.75);
-    line-height: 1.75;
-    padding-bottom: 0.25rem;
-  }
 
   /* Grid */
   .portfolio-grid {
@@ -180,19 +182,20 @@ const portfolioItems = [
   position: relative;
   overflow: visible !important;
 }
-
-
-  .portfolio-img-wrap {
-    position: relative;
-    aspect-ratio: 4/3;
-    overflow: hidden;
-    background: var(--burgundy);
-    border-radius: 2px;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+.portfolio-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  overflow: hidden; /* Esto es vital para que la imagen no se salga de las esquinas */
+  background: var(--burgundy);
+  
+  /* El redondeo que pediste */
+  border-radius: 30px; 
+  
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
   .portfolio-img {
     width: 100%;
@@ -217,18 +220,19 @@ const portfolioItems = [
   .portfolio-img:not([src*="placeholder"]) + .portfolio-placeholder {
     display: none;
   }
+.portfolio-overlay {
+  position: absolute;
+  inset: 0;
+  /* Degradado más oscuro desde abajo hacia el centro */
+  background: linear-gradient(to top, rgba(45, 26, 54, 0.95) 0%, transparent 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.25rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
 
-  .portfolio-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(90,0,20,0.9) 0%, transparent 60%);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 1.25rem;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
 
   .portfolio-img-wrap:hover .portfolio-overlay {
     opacity: 1;
@@ -238,13 +242,13 @@ const portfolioItems = [
     transform: scale(1.04);
   }
 
-  .portfolio-item-title {
-    font-family: 'Playfair Display', serif;
-    color: white;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-  }
-
+.portfolio-item-title {
+  font-family: 'Playfair Display', serif;
+  color: white; /* Aquí sí blanco, porque el fondo del overlay es oscuro */
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
   .portfolio-item-cta {
     font-size: 0.8rem;
     color: var(--cream-dark);
