@@ -1,0 +1,147 @@
+.workshops {
+  background: var(--cream);
+  padding: 5rem 1.5rem;
+  position: relative;
+}
+
+.workshops-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.section-eyebrow-light {
+  display: inline-block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 700;
+  background-color: var(--violet);
+  color: var(--cream);
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  margin-bottom: 1.25rem;
+}
+
+.workshops-title {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  color: var(--text-dark);
+  margin-bottom: 1.25rem;
+  line-height: 1.05;
+}
+
+.workshops-title em {
+  color: var(--violet);
+  font-style: italic;
+}
+
+.workshops-lead {
+  font-size: 1rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+  margin-bottom: 2rem;
+  max-width: 420px;
+}
+
+.workshops-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.workshops-features li {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.feat-icon {
+  color: var(--violet);
+  font-size: 1.2rem;
+  line-height: 1.4;
+  flex-shrink: 0;
+}
+
+.workshops-features strong {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.workshops-features p {
+  font-size: 0.88rem;
+  color: var(--text-light);
+  line-height: 1.5;
+}
+
+/* El contenedor del video */
+.workshops-video {
+  width: 100%;
+  max-width: 360px;
+  aspect-ratio: 9 / 16;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  line-height: 0;
+}
+
+.workshops-video iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Ajustamos el contenedor violeta para que no fuerce alturas raras */
+.workshops-visual {
+  border-radius: 30px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: auto;
+}
+
+@media (max-width: 680px) {
+  .workshops-inner {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .workshops-video {
+    max-width: 360px;
+  }
+}
+
+.whatsapp-btn-workshops {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background-color: var(--green-wa);
+  color: var(--cream);
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 30px;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.whatsapp-btn-workshops:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.wa-icon {
+  width: 24px;
+  height: 24px;
+  color: var(--cream);
+}
